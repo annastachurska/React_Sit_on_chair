@@ -117,11 +117,66 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 
+    class Row2Item extends React.Component{
+        constructor(props){
+            super(props);
+        }
+        handleTitleMouseOver = (e) => {
+            e.target.style.display = 'none';
+
+        }
+
+        handleTitleMouseOut = (e) => {
+            e.target.style.display = 'block';
+        }
+
+        render(){
+            return(
+                <article key={this.props.index} className="row2_item">
+                    <article className="row2_element" onMouseOver={this.handleTitleMouseOver} onMouseOut={this.handleTitleMouseOut}>
+                        <h2 className="row2_h2 green_underline">{this.props.element}</h2>
+                    </article>
+                </article>
+            )
+        }
+    }
+
+    class Row2 extends React.Component{
+        render(){
+            const list = ['Chair CLAIR', 'Chair MARGARITA'];
+            const listEl = list.map((element, index) => {
+                return <Row2Item element={element} index={index}/>
+
+            });
+            return(
+                <section className="row2">
+                    <section className="container flex">
+                        {listEl}
+                        <div className="row2_item">
+                            <div className="row2_element">
+                                <h2 className="row2_h2 green_underline">Finds all inputs</h2>
+                            </div>
+                            <div className="row2_element">
+                                <p className="row2_par">Finds all imputs that are not checked and highlights the next
+                                    sibling span. Notice there is
+                                    no change when clicking the checkboxes since no click events have been linked.</p>
+                                <p className="row2_par">Notice there is no change when clicking the checkboxes since no
+                                    click events have been added.</p>
+                            </div>
+
+                        </div>
+                    </section>
+                </section>
+            )
+        }
+    }
+
     class Main extends React.Component{
         render(){
             return(
                 <section>
                     <Row1 />
+                    <Row2 />
                 </section>
 
             )
