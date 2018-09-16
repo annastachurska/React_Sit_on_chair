@@ -127,7 +127,7 @@ h1, h2 {
 }
 .row1_move {
     font-size: 80px;
-    width: 5%;
+    width: 4%;
 }
 .move:link, .move:visited, .move:hover, .move:active {
     text-decoration: none;
