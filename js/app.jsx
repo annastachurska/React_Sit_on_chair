@@ -51,27 +51,33 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     class Row1Move1 extends React.Component{
+        constructor(props) {
+            super(props);
+        }
+
+        handleClickEl = (e) => {
+            this.props.handleClick();
+        }
+
         render(){
             return(
                 <article className="row1_move">
-                    <a className="move green" href="#">&lt;</a>
+                    <a className="move green" onClick={this.handleClickEl} href={"#"}>&lt;</a>
                 </article>
             )
         }
     }
 
     class Row1Slider extends React.Component{
+        constructor(props){
+            super(props);
+        }
+
         render(){
-            const list = [
-                ['visible', 'images/black_chair.png', 'blackchair', 'black_chair'],
-                ['', 'images/red_chair.png', 'redchair', 'red_chair'],
-                ['', 'images/orange_chair.png', 'orangechair', 'orange_chair'],
-            ];
-            const listEl = list.map((element, index) => {
+            const listEl = this.props.list.map((element, index) => {
                 return <li key={index} className={element[0]}><img src={element[1]} alt={element[2]} title={element[3]} /></li>
             });
-            console.log(list);
-            console.log(listEl);
+            // console.log(listEl);
             return(
                 <ul className="slider">
                     {listEl}
@@ -81,26 +87,73 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     class Row1Move2 extends React.Component{
+        constructor(props){
+            super(props);
+        }
+
+        handleClickEl = (e) => {
+            this.props.handleClick();
+        }
+
         render(){
             return(
-                <article className="row1_move">
-                    <a className="move green" href="#">&gt;</a>
+                <article className="row1_move" >
+                    <a className="move green" onClick={this.handleClickEl} href={"#"}>&gt;</a>
                 </article>
+                // <Link href='/' onClick={customHandleClick}>
+                // <a>No free pizza :(</a>
+                //</Link>
             )
         }
     }
 
     class Row1 extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                list: [
+                    ['visible', 'images/black_chair.png', 'blackchair', 'black_chair'],
+                    ['', 'images/red_chair.png', 'redchair', 'red_chair'],
+                    ['', 'images/orange_chair.png', 'orangechair', 'orange_chair'],
+                ]
+            }
+        }
         handleMove1 = () => {
-
+            const list = this.state.list;
+            let nr = null;
+            list.forEach((element, index) => {
+                if (element[0] === 'visible') {
+                    nr = index;
+                }
+            });
+            list[nr][0] = '';
+            if (nr > 0) {
+                list[nr-1][0] = 'visible';
+            } else {
+                list[list.length-1][0] = 'visible';
+            }
+            this.setState({
+                list: list
+            });
         }
 
         handleMove2 = () => {
-
-        }
-
-        handleRow1Button = () => {
-
+            const list = this.state.list;
+            let nr = null;
+            list.forEach((element, index) => {
+                if (element[0] === 'visible') {
+                    nr = index;
+                }
+            });
+            list[nr][0] = '';
+            if (nr < list.length-1) {
+                list[nr+1][0] = 'visible';
+            } else {
+                list[0][0] = 'visible';
+            }
+            this.setState({
+                list: list
+            });
         }
 
         render(){
@@ -108,8 +161,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 <section className="row1">
                     <article className="container flex">
                         <Row1Move1 handleClick={this.handleMove1}/>
-                        <Row1Slider />
-                        <Row1Text handleClickBtn={this.handleRow1Button}/>
+                        <Row1Slider list={this.state.list}/>
+                        <Row1Text/>
                         <Row1Move2 handleClick={this.handleMove2}/>
                     </article>
                 </section>
@@ -123,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         handleTitleMouseOver = (e) => {
             e.target.style.display = 'none';
-
         }
 
         handleTitleMouseOut = (e) => {
@@ -141,30 +193,46 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 
+    class Row2LastElementText extends React.Component{
+        render(){
+            const list = [
+                'Finds all imputs that are not checked and highlights the next sibling span. Notice there is no change when clicking the checkboxes since no click events have been linked.',
+                'Notice there is no change when clicking the checkboxes since no click events have been added.'
+            ];
+            const listEl = list.map((element, index) => {
+                return <p key={index} className="row2_par">{element}</p>
+            });
+            return(
+                <article className="row2_element">
+                    {listEl}
+                </article>
+            )
+        }
+    }
+    class Row2LastElement extends React.Component{
+        render(){
+            return(
+                <article className="row2_item">
+                    <article className="row2_element">
+                        <h2 className="row2_h2 green_underline">Finds all inputs</h2>
+                    </article>
+                    <Row2LastElementText />
+                </article>
+            )
+        }
+    }
+
     class Row2 extends React.Component{
         render(){
             const list = ['Chair CLAIR', 'Chair MARGARITA'];
             const listEl = list.map((element, index) => {
                 return <Row2Item element={element} index={index}/>
-
             });
             return(
                 <section className="row2">
                     <section className="container flex">
                         {listEl}
-                        <div className="row2_item">
-                            <div className="row2_element">
-                                <h2 className="row2_h2 green_underline">Finds all inputs</h2>
-                            </div>
-                            <div className="row2_element">
-                                <p className="row2_par">Finds all imputs that are not checked and highlights the next
-                                    sibling span. Notice there is
-                                    no change when clicking the checkboxes since no click events have been linked.</p>
-                                <p className="row2_par">Notice there is no change when clicking the checkboxes since no
-                                    click events have been added.</p>
-                            </div>
-
-                        </div>
+                        <Row2LastElement />
                     </section>
                 </section>
             )
@@ -182,7 +250,6 @@ document.addEventListener("DOMContentLoaded", function(){
             )
         }
     }
-
 
     class NavLogo extends React.Component{
         render(){
