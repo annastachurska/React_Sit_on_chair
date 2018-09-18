@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         render(){
             return(
-                <article key={this.props.index} className="row2_item">
+                <article className="row2_item">
                     <article className="row2_element" onMouseOver={this.handleTitleMouseOver} onMouseOut={this.handleTitleMouseOut}>
                         <h2 className="row2_h2 green_underline">{this.props.element}</h2>
                     </article>
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function(){
         render(){
             const list = ['Chair CLAIR', 'Chair MARGARITA'];
             const listEl = list.map((element, index) => {
-                return <Row2Item element={element} index={index}/>
+                return <Row2Item key={index} element={element}/>
             });
             return(
                 <section className="row2">
@@ -313,13 +313,73 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 
+    class FooterInfo extends React.Component{
+        render(){
+            let footerMainText = 'Copyrigtht 2014 | All Rights Reserved. - Sit On Chair';
+            return(
+                <p className="footer_info">{footerMainText}</p>
+            )
+        }
+    }
+
+    class FooterImgEl extends React.Component{
+        render(){
+            return(
+                <img className="footer_img_item" src={this.props.element[0]} alt={this.props.element[1]}/>
+            )
+        }
+    }
+
+    class FooterImg extends React.Component{
+        render(){
+            const list = [
+                ['images/flickr.png', 'Flicker sign'],
+                ['images/vimeo.png', 'Vimeo sign'],
+                ['images/pinterest.png', 'Pinterest sign'],
+                ['images/twitter.png', 'Twitter sign']
+            ];
+
+            const listElements = list.map((element, index) => {
+                return <FooterImgEl key={index} element={element}/>
+            });
+            return(
+                <div className="footer_images">
+                    {listElements}
+                </div>
+            )
+        }
+    }
+
+    class FooterLogo extends React.Component{
+        render(){
+            return(
+                <p className="footer_logo">Sit <span>on</span> chair</p>
+            )
+        }
+    }
+
+    class Footer extends React.Component{
+        render(){
+            return(
+                <footer>
+                    <div className="container flex">
+                        <FooterInfo />
+                        <div className="footer_empty"></div>
+                        <FooterImg />
+                        <FooterLogo />
+                    </div>
+                </footer>
+            )
+        }
+    }
+
     class App extends React.Component{
         render(){
             return(
                 <section>
                     <Header />
                     <Main />
-                    {/*<Footer />*/}
+                    <Footer />
                 </section>
             )
         }
