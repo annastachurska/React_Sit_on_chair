@@ -239,12 +239,115 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 
+    class Row4Header extends React.Component{
+        render(){
+            return(
+                <div className="row4_h_container">
+                    <h1 className="row4_h green_underline">Kontakt</h1>
+                </div>
+            )
+        }
+    }
+
+    class Row4FieldsetItem1 extends React.Component{
+        render(){
+            const listRow4 = [['text', 'Imię',], ['email', 'email',]];
+            const listRow4Items = listRow4.map((element, index) => {
+                return (
+                    <div key={index}>
+                        <input  className="row4_formitem" type={element[0]} placeholder={element[1]} />
+                    </div>
+                    )
+
+            });
+            const row4Textarea = <div>
+                <textarea className="row4_formitem" placeholder="Wiadomość" rows="5"></textarea>
+            </div>;
+            return(
+                <div className="row4_item">
+                    {listRow4Items}
+                    {row4Textarea}
+                </div>
+            )
+        }
+    }
+
+    class Row4Fieldset2Item2Img extends React.Component {
+        render(){
+            return(
+                <div className="row4_image_container">
+                    <img className="row4_image" src="images/red_chair.png" alt="czerwone_krzesło"/>
+                </div>
+            )
+        }
+    }
+
+    class Row4Fieldset2Item2Chbx extends React.Component {
+        render(){
+            return(
+                <label className="checkbox_container" htmlFor="agree">Zgadzam się na przetwarzanie
+                    danych osobowych
+                    <input className="row4_checkbox" type="checkbox" id="agree" defaultChecked="checked" />
+                    <span className="checkmark"></span>
+                </label>
+            )
+        }
+    }
+
+    class Row4Fieldset2Item2Btn extends React.Component{
+        render() {
+            return(
+                <div className="row4_button_container">
+                    <button className="row4_button green_filled" onClick="">WYŚLIJ</button>
+                </div>
+            )
+        }
+    }
+
+    class Row4FieldsetItem2 extends React.Component {
+        render(){
+            return(
+                <div className="row4_item">
+                    <Row4Fieldset2Item2Img />
+                    <Row4Fieldset2Item2Chbx />
+                    <Row4Fieldset2Item2Btn />
+                </div>
+            )
+        }
+    }
+    class Row4Fieldset extends React.Component{
+        render(){
+            return(
+                <fieldset className="row4_fieldset flex">
+                    <div className="flex">
+                        <Row4FieldsetItem1 />
+                        <Row4FieldsetItem2 />
+                    </div>
+                </fieldset>
+            )
+        }
+    }
+
+    class Row4 extends React.Component{
+        render(){
+            return(
+                <section className="row4">
+                    <div className="container">
+                        <Row4Header />
+                        <Row4Fieldset />
+                    </div>
+                </section>
+            )
+        }
+    }
+
     class Main extends React.Component{
         render(){
             return(
                 <section>
                     <Row1 />
                     <Row2 />
+                    <Row4 />
                 </section>
 
             )
